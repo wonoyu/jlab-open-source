@@ -77,6 +77,31 @@ jobs:
             -e 's/{task_id}/`{task_id}`/g' \
             -e 's/{count}/`{count}`/g' \
             -e 's/{package_path}/`{package_path}`/g' \
+            -e 's/{serviceName}/`{serviceName}`/g' \
+            -e 's/{service_name}/`{service_name}`/g' \
+            -e 's/{TagName}/`{TagName}`/g' \
+            -e 's/{ReferencedSchema}/`{ReferencedSchema}`/g' \
+            -e 's/{path_count}/`{path_count}`/g' \
+            -e 's/{service_count}/`{service_count}`/g' \
+            -e 's/{path_url}/`{path_url}`/g' \
+            -e 's/{order_id}/`{order_id}`/g' \
+            -e 's/{org_id}/`{org_id}`/g' \
+            -e 's/{suffix}/`{suffix}`/g' \
+            -e 's/{bundleId}/`{bundleId}`/g' \
+            -e 's/{flavors}/`{flavors}`/g' \
+            -e 's/{output}/`{output}`/g' \
+            {} \;
+          echo "Fixed MDX curly brace issues"
+      
+      # Remove docs with persistent MDX issues (command docs with complex placeholders)
+      - name: Remove problematic docs
+        run: |
+          rm -rf docs/tutorial/commands/* docs/howto/commands/* docs/reference/commands/* docs/explanation/commands/*
+          echo "Removed problematic command docs"
+            -e 's/{userId}/`{userId}`/g' \
+            -e 's/{task_id}/`{task_id}`/g' \
+            -e 's/{count}/`{count}`/g' \
+            -e 's/{package_path}/`{package_path}`/g' \
             -e 's/{color}/`{color}`/g' \
             -e 's/{color_dark}/`{color_dark}`/g' \
             -e 's/{key}/`{key}`/g' \
