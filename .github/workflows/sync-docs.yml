@@ -32,6 +32,9 @@ jobs:
       # STEP 1: Clone and copy docs from source repos
       # ============================================
       
+      - name: Create docs directory
+        run: mkdir -p docs
+      
       - name: Clone jlab-flutter-development-kit
         uses: actions/checkout@v4
         with:
@@ -41,10 +44,57 @@ jobs:
           sparse-checkout: |
             docs
           sparse-checkout-cone-mode: false
-      
+          fetch-depth: 1
+       
       - name: Copy jlab-flutter-development-kit docs
         run: |
-          cp -r tmp/jlab-flutter-development-kit/docs/* docs/ 2>/dev/null || echo "No docs found in jlab-flutter-development-kit"
+          if [ -d "tmp/jlab-flutter-development-kit/docs" ]; then
+            cp -r tmp/jlab-flutter-development-kit/docs/* docs/
+            echo "Docs copied successfully"
+          else
+            echo "Warning: No docs folder found in jlab-flutter-development-kit"
+            ls -la tmp/
+          fi
+      
+      # Fix MDX curly brace issues - escape {variable} patterns
+      - name: Fix MDX curly brace issues
+        run: |
+          # Fix all {variable} patterns in markdown files that MDX interprets as JS variables
+          # This escapes them in code blocks and tables
+          
+          # Fix common placeholder patterns
+          find docs -name "*.md" -type f -exec sed -i \
+            -e 's/{version}/`{version}`/g' \
+            -e 's/{path}/`{path}`/g' \
+            -e 's/{org}/`{org}`/g' \
+            -e 's/{app}/`{app}`/g' \
+            -e 's/{feature}/`{feature}`/g' \
+            -e 's/{page}/`{page}`/g' \
+            -e 's/{id}/`{id}`/g' \
+            -e 's/{flavor}/`{flavor}`/g' \
+            -e 's/{project}/`{project}`/g' \
+            -e 's/{userId}/`{userId}`/g' \
+            -e 's/{task_id}/`{task_id}`/g' \
+            -e 's/{count}/`{count}`/g' \
+            -e 's/{package_path}/`{package_path}`/g' \
+            -e 's/{color}/`{color}`/g' \
+            -e 's/{color_dark}/`{color_dark}`/g' \
+            -e 's/{key}/`{key}`/g' \
+            -e 's/{value}/`{value}`/g' \
+            -e 's/{provider}/`{provider}`/g' \
+            -e 's/{url}/`{url}`/g' \
+            -e 's/{project_name}/`{project_name}`/g' \
+            -e 's/{organization_id}/`{organization_id}`/g' \
+            -e 's/{flavor_name}/`{flavor_name}`/g' \
+            -e 's/{production_flavor}/`{production_flavor}`/g' \
+            -e 's/{appDir}/`{appDir}`/g' \
+            -e 's/{configFile}/`{configFile}`/g' \
+            -e 's/{flavor1}/`{flavor1}`/g' \
+            -e 's/{flavor2}/`{flavor2}`/g' \
+            -e 's/{flavor3}/`{flavor3}`/g' \
+            -e 's/{config_file}/`{config_file}`/g' \
+            {} \;
+          echo "Fixed MDX curly brace issues"
       
       # Add more repos as needed:
       #
