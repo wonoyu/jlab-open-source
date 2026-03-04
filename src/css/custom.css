@@ -1,0 +1,256 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well with Docusaurus.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #0175c2;
+  --ifm-color-primary-dark: #0168af;
+  --ifm-color-primary-darker: #0162a6;
+  --ifm-color-primary-darkest: #015089;
+  --ifm-color-primary-light: #0180d6;
+  --ifm-color-primary-lighter: #0186df;
+  --ifm-color-primary-lightest: #019bf9;
+  --ifm-code-font-size: 95%;
+  --ifm-navbar-background-color: #f5f7fa;
+  --ifm-navbar-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --ifm-menu-color-background-active: rgba(1, 117, 194, 0.1);
+  --ifm-sidebar-background-color: #f5f7fa;
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] {
+  --ifm-color-primary: #40a9ff;
+  --ifm-color-primary-dark: #1e90ff;
+  --ifm-color-primary-darker: #1082ff;
+  --ifm-color-primary-darkest: #006ae0;
+  --ifm-color-primary-light: #6eb8ff;
+  --ifm-color-primary-lighter: #89c2ff;
+  --ifm-color-primary-lightest: #bae0ff;
+  --ifm-navbar-background-color: #1a1a1a;
+  --ifm-menu-color-background-active: rgba(64, 169, 255, 0.15);
+}
+
+/* Navbar styles */
+.navbar {
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.navbar__title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.navbar__item {
+  font-weight: 500;
+}
+
+/* Sidebar styles */
+.menu__link {
+  border-radius: 6px;
+  margin: 2px 8px;
+}
+
+.menu__link--active {
+  background-color: var(--ifm-menu-color-background-active);
+  font-weight: 600;
+}
+
+/* Documentation styles */
+.markdown h1 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.markdown h2 {
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.markdown h3 {
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+
+.markdown p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Table styles */
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.markdown table th,
+.markdown table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e1e4e8;
+}
+
+.markdown table th {
+  background-color: #f5f7fa;
+  font-weight: 600;
+  text-align: left;
+}
+
+[data-theme='dark'] .markdown table th {
+  background-color: #2d2d2d;
+}
+
+/* Code block styles */
+.markdown pre {
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.markdown code {
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Alert styles (admonitions) */
+.alert {
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.alert--info {
+  background-color: #e6f7ff;
+  border-left: 4px solid #1890ff;
+}
+
+.alert--tip {
+  background-color: #f6ffed;
+  border-left: 4px solid #52c41a;
+}
+
+.alert--warning {
+  background-color: #fffbe6;
+  border-left: 4px solid #faad14;
+}
+
+.alert--danger {
+  background-color: #fff1f0;
+  border-left: 4px solid #ff4d4f;
+}
+
+[data-theme='dark'] .alert--info {
+  background-color: rgba(24, 144, 255, 0.15);
+}
+
+[data-theme='dark'] .alert--tip {
+  background-color: rgba(82, 196, 26, 0.15);
+}
+
+[data-theme='dark'] .alert--warning {
+  background-color: rgba(250, 173, 20, 0.15);
+}
+
+[data-theme='dark'] .alert--danger {
+  background-color: rgba(255, 77, 79, 0.15);
+}
+
+/* Card styles */
+.card {
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin: 1rem 0;
+}
+
+.card__header {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Badge styles */
+.badge {
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+}
+
+.badge--info {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.badge--success {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.badge--warning {
+  background-color: #fffbe6;
+  color: #faad14;
+}
+
+.badge--danger {
+  background-color: #fff1f0;
+  color: #ff4d4f;
+}
+
+/* Footer styles */
+.footer {
+  border-top: 1px solid #e1e4e8;
+}
+
+.footer__title {
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar__item {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .markdown table {
+    font-size: 0.875rem;
+  }
+
+  .markdown table th,
+  .markdown table td {
+    padding: 0.5rem;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #5c5c5c;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: #7c7c7c;
+}

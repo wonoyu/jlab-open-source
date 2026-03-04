@@ -1,0 +1,95 @@
+name: Sync and Build Multi-Repo Docs
+
+on:
+  # Trigger manually
+  workflow_dispatch:
+  # Or on schedule (weekly)
+  schedule:
+    - cron: '0 0 * * 0'  # Every Sunday at midnight
+  # Trigger on changes in this repo
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-docs.yml'
+      - 'docusaurus.config.js'
+      - 'sidebar.js'
+      - 'package.json'
+
+jobs:
+  sync-and-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    steps:
+      # Checkout this repo
+      - name: Checkout jlab-open-source
+        uses: actions/checkout@v4
+      
+      # ============================================
+      # STEP 1: Clone and copy docs from source repos
+      # ============================================
+      
+      - name: Clone jlab-flutter-development-kit
+        uses: actions/checkout@v4
+        with:
+          repository: wonoyu/jlab-flutter-development-kit
+          path: tmp/jlab-flutter-development-kit
+          sparse-checkout: |
+            docs
+          sparse-checkout-cone-mode: false
+      
+      - name: Copy jlab-flutter-development-kit docs
+        run: |
+          mkdir -p docs/jlab-flutter-development-kit
+          cp -r tmp/jlab-flutter-development-kit/docs/* docs/jlab-flutter-development-kit/ 2>/dev/null || echo "No docs found in jlab-flutter-development-kit"
+      
+      # Add more repos as needed:
+      #
+      # - name: Clone another-project
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: wonoyu/another-project
+      #     path: tmp/another-project
+      #     sparse-checkout: |
+      #       docs
+      #     sparse-checkout-cone-mode: false
+      #
+      # - name: Copy another-project docs
+      #   run: |
+      #     mkdir -p docs/another-project
+      #     cp -r tmp/another-project/docs/* docs/another-project/
+      
+      # ============================================
+      # STEP 2: Build Docusaurus
+      # ============================================
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build documentation
+        run: npm run build
+      
+      # ============================================
+      # STEP 3: Deploy to GitHub Pages
+      # ============================================
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

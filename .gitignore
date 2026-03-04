@@ -1,0 +1,7 @@
+
+# docusaurus generated files
+.docusaurus
+/build
+
+# node_modules
+/node_modules
