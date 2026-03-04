@@ -37,6 +37,7 @@ jobs:
         with:
           repository: wonoyu/jlab-flutter-development-kit
           path: tmp/jlab-flutter-development-kit
+          token: ${{ secrets.GITHUB_TOKEN }}
           sparse-checkout: |
             docs
           sparse-checkout-cone-mode: false
