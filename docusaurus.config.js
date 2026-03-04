@@ -7,9 +7,9 @@ const config = {
   tagline: 'Open source Flutter development tools',
   favicon: 'img/favicon.ico',
 
-  // Single URL for the hub
+  // URL configuration - base URL should include repo name
   url: 'https://wonoyu.github.io',
-  baseUrl: '/',
+  baseUrl: '/jlab-open-source/',
 
   // Handle multiple projects
   organizationName: 'wonoyu',
@@ -28,11 +28,8 @@ const config = {
       'classic',
       {
         docs: {
-          // Each project has its own sidebar
           sidebarPath: require.resolve('./sidebar.js'),
-          // Edit URL points to source repo
-          editUrl: 'https://github.com/wonoyu/jlab-open-source/tree/main/',
-          // Show last update time
+          editUrl: 'https://github.com/wonoyu/jlab-flutter-development-kit/tree/main/docs/',
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
         },
@@ -44,27 +41,22 @@ const config = {
   ],
 
   themeConfig: {
-    image: 'img/social-card.jpg',
-    
     navbar: {
-      title: 'JLab Docs',
-      logo: {
-        alt: 'JLab Logo',
-        src: 'img/logo.svg',
-      },
+      title: 'JLab',
       items: [
-        // Dropdown for selecting project
+        // Home - JLab Open Source
+        {
+          to: '/',
+          label: 'JLab Open Source',
+          position: 'left',
+        },
+        // Docs - JLab FDK
         {
           type: 'docSidebar',
           sidebarId: 'jlabSidebar',
           position: 'left',
-          label: 'jlab-flutter-development-kit',
+          label: 'JLab FDK',
         },
-        // Add more projects as dropdown:
-        // {
-        //   type: 'docsVersionDropdown',
-        //   position: 'right',
-        // },
         {
           href: 'https://github.com/wonoyu/jlab-open-source',
           label: 'GitHub',
