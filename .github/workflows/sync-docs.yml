@@ -44,8 +44,7 @@ jobs:
       
       - name: Copy jlab-flutter-development-kit docs
         run: |
-          mkdir -p docs/jlab-flutter-development-kit
-          cp -r tmp/jlab-flutter-development-kit/docs/* docs/jlab-flutter-development-kit/ 2>/dev/null || echo "No docs found in jlab-flutter-development-kit"
+          cp -r tmp/jlab-flutter-development-kit/docs/* docs/ 2>/dev/null || echo "No docs found in jlab-flutter-development-kit"
       
       # Add more repos as needed:
       #

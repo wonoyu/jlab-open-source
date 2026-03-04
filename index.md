@@ -8,7 +8,7 @@ hero:
     filename: logo.svg
   actions:
     - text: Get Started
-      link: /jlab-flutter-development-kit/index
+      link: /docs/intro
       icon: true
       style: primary
     - text: View on GitHub
@@ -17,7 +17,7 @@ hero:
 features:
   - title: jlab-flutter-development-kit
     description: A powerful CLI tool for scaffolding and managing Flutter monorepo projects
-    link: /jlab-flutter-development-kit/index
+    link: /docs/intro
   - title: More Coming Soon
     description: Additional projects will be added to this documentation hub
     link: 
@@ -36,4 +36,4 @@ A comprehensive CLI tool for Flutter monorepo development. It provides commands 
 - API integration with code generation
 - Setup for flavors, Firebase, PowerSync, and more
 
-[Get Started with jlab-flutter-development-kit →](/jlab-flutter-development-kit/index)
+[Get Started with jlab-flutter-development-kit →](/docs/intro)
