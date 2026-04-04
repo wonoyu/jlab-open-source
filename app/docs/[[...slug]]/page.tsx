@@ -18,12 +18,13 @@ export default async function Page({ params }: Props) {
   const page = source.getPage(slug);
   if (!page) notFound();
 
-  const MDX = page.data.body;
+  const pageData = page.data as any;
+  const MDX = pageData.body;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+    <DocsPage toc={pageData.toc} full={pageData.full}>
+      <DocsTitle>{pageData.title}</DocsTitle>
+      <DocsDescription>{pageData.description}</DocsDescription>
       <DocsBody>
         <MDX components={{ ...defaultMdxComponents }} />
       </DocsBody>
@@ -40,8 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = source.getPage(slug);
   if (!page) notFound();
 
+  const pageData = page.data as any;
+
   return {
-    title: `${page.data.title} | JLab Docs`,
-    description: page.data.description,
+    title: `${pageData.title} | JLab Docs`,
+    description: pageData.description,
   };
 }
