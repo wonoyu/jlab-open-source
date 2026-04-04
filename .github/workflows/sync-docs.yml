@@ -11,9 +11,11 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/sync-docs.yml'
-      - 'docusaurus.config.js'
-      - 'sidebar.js'
+      - 'next.config.mjs'
+      - 'source.config.ts'
       - 'package.json'
+      - 'app/**'
+      - 'lib/**'
 
 jobs:
   sync-and-build:
@@ -22,22 +24,19 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    
+
     steps:
       # Checkout this repo
       - name: Checkout jlab-open-source
         uses: actions/checkout@v4
-      
+
       # ============================================
       # STEP 1: Clone and copy docs from source repos
       # ============================================
-      
-      - name: Create docs directory
-        run: |
-          mkdir -p docs
-          mkdir -p static
-          touch static/.gitkeep
-      
+
+      - name: Create content/docs directory
+        run: mkdir -p content/docs
+
       - name: Clone jlab-flutter-development-kit
         uses: actions/checkout@v4
         with:
@@ -49,61 +48,67 @@ jobs:
             docs
           sparse-checkout-cone-mode: false
           fetch-depth: 1
-       
+
       - name: Copy jlab-flutter-development-kit docs
         run: |
           if [ -d "tmp/jlab-flutter-development-kit/docs" ]; then
-            cp -r tmp/jlab-flutter-development-kit/docs/* docs/
+            mkdir -p content/docs/jlab-flutter-development-kit
+            cp -r tmp/jlab-flutter-development-kit/docs/* content/docs/jlab-flutter-development-kit/
             echo "Docs copied successfully"
           else
             echo "Warning: No docs folder found in jlab-flutter-development-kit"
             ls -la tmp/
           fi
-      
-      # Add more repos as needed:
+
+      # To add more repositories, duplicate the Clone and Copy steps like this:
       #
       # - name: Clone another-project
       #   uses: actions/checkout@v4
       #   with:
       #     repository: wonoyu/another-project
       #     path: tmp/another-project
+      #     token: ${{ secrets.GH_PAT }}
       #     sparse-checkout: |
       #       docs
       #     sparse-checkout-cone-mode: false
+      #     fetch-depth: 1
       #
       # - name: Copy another-project docs
       #   run: |
-      #     mkdir -p docs/another-project
-      #     cp -r tmp/another-project/docs/* docs/another-project/
-      
+      #     if [ -d "tmp/another-project/docs" ]; then
+      #       mkdir -p content/docs/another-project
+      #       cp -r tmp/another-project/docs/* content/docs/another-project/
+      #     fi
+
       # ============================================
-      # STEP 2: Build Docusaurus
+      # STEP 2: Build Fumadocs (Next.js static export)
       # ============================================
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+
       - name: Install dependencies
-        run: npm ci
-      
+        run: npm install
+
       - name: Build documentation
         run: npm run build
-      
+
       # ============================================
       # STEP 3: Deploy to GitHub Pages
       # ============================================
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
-      
+          # Next.js static export outputs to 'out/' directory
+          path: out
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
